@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Orchestration Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #38bdf8; }
+        .subtitle { color: #94a3b8; margin-bottom: 2rem; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 960px; width: 100%; }
+        .card { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; }
+        .card h2 { font-size: 1.1rem; color: #38bdf8; margin-bottom: 0.5rem; }
+        .card p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem; }
+        .btn { display: inline-block; padding: 0.5rem 1rem; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 0.85rem; }
+        .btn:hover { background: #1d4ed8; }
+        #result { margin-top: 2rem; max-width: 960px; width: 100%; background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; white-space: pre-wrap; font-family: monospace; font-size: 0.85rem; min-height: 60px; }
+        .architecture { max-width: 960px; width: 100%; text-align: center; margin: 2rem 0; padding: 1.5rem; background: #1e293b; border-radius: 12px; border: 1px solid #334155; }
+        .arch-flow { display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .arch-box { padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; }
+        .arch-arrow { color: #38bdf8; font-size: 1.5rem; }
+        .frontend-box { background: #164e63; color: #67e8f9; }
+        .api-box { background: #1e3a5f; color: #60a5fa; }
+        .db-box { background: #3b0764; color: #c084fc; }
+    </style>
+</head>
+<body>
+    <h1>Container Orchestration Demo</h1>
+    <p class="subtitle">Three-Tier Microservice Application</p>
+    <div class="architecture">
+        <h2 style="color:#38bdf8;margin-bottom:1rem;">Architecture</h2>
+        <div class="arch-flow">
+            <div class="arch-box frontend-box">Nginx Frontend</div>
+            <div class="arch-arrow">&#8594;</div>
+            <div class="arch-box api-box">Python API</div>
+            <div class="arch-arrow">&#8594;</div>
+            <div class="arch-box db-box">PostgreSQL</div>
+        </div>
+    </div>
+    <div class="cards">
+        <div class="card">
+            <h2>Health Check</h2>
+            <p>Verify the API is running and responsive.</p>
+            <button class="btn" onclick="callEndpoint('/api/health')">GET /health</button>
+        </div>
+        <div class="card">
+            <h2>Database Query</h2>
+            <p>Fetch the current timestamp from PostgreSQL.</p>
+            <button class="btn" onclick="callEndpoint('/api/data')">GET /data</button>
+        </div>
+        <div class="card">
+            <h2>CPU Stress Test</h2>
+            <p>Run 10,000 SHA-256 hash iterations.</p>
+            <button class="btn" onclick="callEndpoint('/api/stress')">GET /stress</button>
+        </div>
+    </div>
+    <div id="result">Click a button above to see the API response...</div>
+    <script>
+        async function callEndpoint(path) {
+            const el = document.getElementById('result');
+            el.textContent = 'Loading...';
+            try {
+                const res = await fetch(path);
+                const json = await res.json();
+                el.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+                el.textContent = 'Error: ' + err.message;
+            }
+        }
+    </script>
+</body>
+</html>
