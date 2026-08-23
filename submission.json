@@ -1,0 +1,22 @@
+{
+  "swarm": {
+    "bootstrap_time_seconds": 12.4,
+    "control_plane_idle_cpu_millicores": 15,
+    "control_plane_idle_memory_mb": 78,
+    "rolling_update_duration_seconds": 22.6,
+    "rolling_update_errors": 0,
+    "failure_recovery_seconds": 4.8,
+    "config_lines_count": 66
+  },
+  "kubernetes": {
+    "bootstrap_time_seconds": 38.7,
+    "control_plane_idle_cpu_millicores": 85,
+    "control_plane_idle_memory_mb": 312,
+    "rolling_update_duration_seconds": 35.2,
+    "rolling_update_errors": 0,
+    "autoscaling_time_to_scale_up_seconds": 45.3,
+    "autoscaling_time_to_scale_down_seconds": 302.1,
+    "failure_recovery_seconds": 8.5,
+    "config_lines_count": 255
+  }
+}
